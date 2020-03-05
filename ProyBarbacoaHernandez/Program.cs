@@ -21,5 +21,4 @@ namespace ProyBarbacoaHernandez
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>();
     }
-
 }
