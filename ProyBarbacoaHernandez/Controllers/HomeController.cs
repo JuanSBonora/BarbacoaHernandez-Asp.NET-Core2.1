@@ -12,15 +12,19 @@ namespace ProyBarbacoaHernandez.Controllers
 {
     public class HomeController : Controller
     {
+        IServiceProvider _serviceProvider;
+
         public HomeController(IServiceProvider serviceProvider)
         {
-            CreateRoles(serviceProvider); 
-        }
-        public IActionResult Index()
-        {
-            return View();
+            _serviceProvider = serviceProvider;
         }
 
+        public async Task<IActionResult> Index()
+        {
+            await CreateRolesAsync(_serviceProvider);
+            return View();
+        }
+         
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
@@ -45,7 +49,7 @@ namespace ProyBarbacoaHernandez.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        private async Task CreateRoles(IServiceProvider serviceProvider)
+        private async Task CreateRolesAsync(IServiceProvider serviceProvider)
         {
             String mensaje;
             try
@@ -66,6 +70,7 @@ namespace ProyBarbacoaHernandez.Controllers
             }
             catch (Exception ex)
             {
+
                 mensaje = ex.Message;
             }
         }
