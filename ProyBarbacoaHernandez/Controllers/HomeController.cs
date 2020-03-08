@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,7 @@ namespace ProyBarbacoaHernandez.Controllers
         public HomeController(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
+           // ejecutarTareaAsync();
         }
 
         public async Task<IActionResult> Index()
@@ -73,6 +75,17 @@ namespace ProyBarbacoaHernandez.Controllers
 
                 mensaje = ex.Message;
             }
+        }
+        private  async  Task ejecutarTareaAsync()
+        {
+            var data = await Tareas();
+            String tarea = "Ahora ejecutaremos las demas lineas de codigo";
+        }
+        private async Task<String> Tareas()
+        {
+            Thread.Sleep(20 * 1000);
+            String tarea = "Tarea finalizada";
+            return tarea;
         }
     }
 }
