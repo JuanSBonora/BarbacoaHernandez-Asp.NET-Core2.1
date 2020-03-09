@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,7 +18,7 @@ namespace ProyBarbacoaHernandez.Controllers
 
         public HomeController(IServiceProvider serviceProvider)
         {
-            _serviceProvider = serviceProvider;
+           //_serviceProvider = serviceProvider;
            // ejecutarTareaAsync();
         }
 
@@ -26,7 +27,18 @@ namespace ProyBarbacoaHernandez.Controllers
             await CreateRolesAsync(_serviceProvider);
             return View();
         }
-         
+        [HttpPost]
+        [AllowAnonymous] 
+        public async Task<IActionResult> Index(LoginViewModels model)
+        {
+            if (ModelState.IsValid)
+            {
+
+            }
+
+            return View(model);
+        }
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
