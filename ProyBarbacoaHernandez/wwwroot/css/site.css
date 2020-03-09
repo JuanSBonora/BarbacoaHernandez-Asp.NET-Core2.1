@@ -1,6 +1,29 @@
-﻿
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
+﻿.card {
+    margin-top: 100px;
+    max-width: 35%;
+    border: 1px /*solid #17141d*/;
+    /*background-color: #17141d;*/
+    border-radius: 5px;
+    padding: 10px;
+}
+.title {
+    color: white;
+    font-weight: 300;
+}
+
+titlewhite{
+    color:white;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100% 
+}
+
+    /* Hide/rearrange for smaller screens */
+    @media screen and (max-width: 767px) {
     /* Hide captions */
     .carousel-caption {
         display: none;
