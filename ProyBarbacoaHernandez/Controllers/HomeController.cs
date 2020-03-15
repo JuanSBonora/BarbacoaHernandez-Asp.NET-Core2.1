@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using ProyBarbacoaHernandez.Library;
 using ProyBarbacoaHernandez.Models;
 
@@ -38,6 +39,18 @@ namespace ProyBarbacoaHernandez.Controllers
             if (ModelState.IsValid)
             {
                 List<object[]> listObject = await _usuarios.userLogin(model.input.Email, model.input.Password);
+                object[] objects = listObject[0];
+                var _identityError = (IdentityError)objects[0];
+                model.ErrorMessage = _identityError.Description;
+                if (model.ErrorMessage.Equals("True"))
+                {
+                    var data = JsonConvert.SerializeObject(objects[1]);
+                    //return RedirectToAction(nameof(PrincipalController.Index), "Principal");
+                }
+                else
+                {
+                    return View("",model);
+                }
             }
 
             return View(model);

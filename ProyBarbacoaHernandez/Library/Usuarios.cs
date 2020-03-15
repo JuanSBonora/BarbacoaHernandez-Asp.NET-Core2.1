@@ -54,6 +54,13 @@ namespace ProyBarbacoaHernandez.Library
                 code = "2";
                 description = ex.Message;
             }
+            _identityError = new IdentityError
+            {
+                Code = code,
+                Description = description
+            };
+            object[] data = { _identityError, _userData };
+            dataList.Add(data);
             return dataList;
         }
     }

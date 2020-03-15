@@ -13,6 +13,10 @@
 
   <ItemGroup>
     <Folder Include="Areas\Identity\Services\" />
+    <Folder Include="Areas\Principal\Controllers\" />
+    <Folder Include="Areas\Principal\Data\" />
+    <Folder Include="Areas\Principal\Models\" />
+    <Folder Include="Areas\Principal\Views\" />
   </ItemGroup>
 
 </Project>
