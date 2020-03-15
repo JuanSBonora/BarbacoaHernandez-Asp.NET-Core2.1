@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using ProyBarbacoaHernandez.Areas.Principal.Controllers;
 using ProyBarbacoaHernandez.Library;
 using ProyBarbacoaHernandez.Models;
 
@@ -45,11 +46,11 @@ namespace ProyBarbacoaHernandez.Controllers
                 if (model.ErrorMessage.Equals("True"))
                 {
                     var data = JsonConvert.SerializeObject(objects[1]);
-                    //return RedirectToAction(nameof(PrincipalController.Index), "Principal");
+                    return RedirectToAction(nameof(PrincipalController.Index), "Principal");
                 }
                 else
                 {
-                    return View("",model);
+                    return View(model);
                 }
             }
 
