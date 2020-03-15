@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using ProyBarbacoaHernandez.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +33,15 @@ namespace ProyBarbacoaHernandez.Library
                 if (result.Succeeded)
                 {
                     var appUser = _userManager.Users.Where(u => u.Email.Equals(email)).ToList();
-
+                    _userRoles = await _usersRole.getRole(_userManager, _roleManager, appUser[0].Id);
+                    _userData = new UserData
+                    {
+                        Id = appUser[0].Id,
+                        Role = _userRoles[0].Text,
+                        UserName = appUser[0].UserName
+                    };
+                    code = "0";
+                    description = result.Succeeded.ToString();
                 }
                 else
                 {
@@ -40,10 +49,12 @@ namespace ProyBarbacoaHernandez.Library
                     description = "incorrect e-mail address or password";
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                code = "2";
+                description = ex.Message;
             }
+            return dataList;
         }
     }
 }

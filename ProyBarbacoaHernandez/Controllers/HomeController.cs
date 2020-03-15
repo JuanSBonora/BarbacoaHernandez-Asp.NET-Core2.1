@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using ProyBarbacoaHernandez.Library;
 using ProyBarbacoaHernandez.Models;
 
 namespace ProyBarbacoaHernandez.Controllers
@@ -16,10 +17,13 @@ namespace ProyBarbacoaHernandez.Controllers
     {
         IServiceProvider _serviceProvider;
 
-        public HomeController(IServiceProvider serviceProvider)
+        private Usuarios _usuarios;
+
+        public HomeController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
-           //_serviceProvider = serviceProvider;
-           // ejecutarTareaAsync();
+            _usuarios = new Usuarios( userManager, signInManager, roleManager);
+            //_serviceProvider = serviceProvider;
+            // ejecutarTareaAsync();
         }
 
         public async Task<IActionResult> Index()
@@ -33,7 +37,7 @@ namespace ProyBarbacoaHernandez.Controllers
         {
             if (ModelState.IsValid)
             {
-
+                List<object[]> listObject = await _usuarios.userLogin(model.input.Email, model.input.Password);
             }
 
             return View(model);
