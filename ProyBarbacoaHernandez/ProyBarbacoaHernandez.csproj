@@ -15,6 +15,10 @@
     <Folder Include="Areas\Identity\Services\" />
     <Folder Include="Areas\Principal\Data\" />
     <Folder Include="Areas\Principal\Models\" />
+    <Folder Include="Areas\Usuarios\Controllers\" />
+    <Folder Include="Areas\Usuarios\Data\" />
+    <Folder Include="Areas\Usuarios\Models\" />
+    <Folder Include="Areas\Usuarios\Views\" />
   </ItemGroup>
 
 </Project>
