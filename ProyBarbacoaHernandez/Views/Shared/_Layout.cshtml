@@ -28,9 +28,9 @@
             <a href="#!" class="brand-logo center"> Barbacoa Hernandez </a>
             @if (SignInManager.IsSignedIn(User))
             {
-                <div id="menuNavbar">
+                <div id="menuNavbar1">
                     <ul class="right hide-on-med-and-down">
-                        <a asp-controller="Usuarios" asp-action="SessionClosed">Salir</a>
+                        <a asp-area="Usuarios" asp-controller="Usuarios" asp-action="SessionClose">Salir</a>
                     </ul>
                 </div>
             }
