@@ -6,11 +6,18 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ProyBarbacoaHernandez.Controllers
 {
-    [Route("/Error")]
+    //[Route("/Error")]
     public class ErrorController : Controller
     {
-        public IActionResult Error()
+        public IActionResult Error(int? statusCode = null)
         {
+            if (statusCode.HasValue)
+            {
+                if (statusCode.Value == 404 || statusCode.Value == 500)
+                {
+                    ViewData["Error"] = statusCode.ToString();
+                }
+            }
             return View();
         }
     }

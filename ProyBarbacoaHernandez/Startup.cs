@@ -71,7 +71,9 @@ namespace ProyBarbacoaHernandez
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-            app.UseStatusCodePagesWithRedirects("/Error");
+            //app.UseStatusCodePages();
+            //app.UseStatusCodePagesWithRedirects("/Error");
+            app.UseStatusCodePagesWithReExecute("/Error/Error", "?statusCode={0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
