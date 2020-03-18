@@ -1,6 +1,13 @@
-﻿.card {
+﻿/*Autor: JuanSBonora & JuanCMuñoz*/
+
+/*#############################*/
+/*########### LOGIN ###########*/
+/*#############################*/
+
+.card {
     margin-top: 70px;
-    max-width: 35%;
+    /*max-width: 50%;*/
+    width: 18rem;
     border: 1px /*solid #17141d*/;
     /*background-color: #17141d;*/
     border-radius: 5px;
@@ -10,17 +17,54 @@
     color: white;
     font-weight: 300;
 }
-
 titlewhite{
     color:white;
 }
-
 .footer {
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100% 
 }
+
+/*###################################*/
+/*############# NAVBAR ##############*/
+/*###################################*/
+
+.btn-floating {
+    background: url(../images/icon/menu-icon.png) no-repeat;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: 35px 35px;
+}
+
+.side-nav{
+    top:0;
+    margin:0;
+    height: calc(100% + 60px);
+    background-color: #fff ;
+    overflow-y: auto;
+    will-change: transform;
+}
+
+@media(max-width: 1024px){
+    .side-nav{
+        display: none;
+    }
+}
+@media(min-width: 800px){
+    /*.container{
+        max-width: 60%;
+    }*/
+    .side-nav{
+        max-width:20%;
+        display: block;
+    }
+}
+
+/*###################################*/
+/*########### DEFAULT CSS ###########*/
+/*###################################*/
 
     /* Hide/rearrange for smaller screens */
     @media screen and (max-width: 767px) {

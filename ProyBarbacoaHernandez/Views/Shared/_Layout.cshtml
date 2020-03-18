@@ -3,7 +3,6 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-
 <html class="blue-grey lighten-5">
 <head>
     <meta charset="utf-8" />
@@ -32,10 +31,27 @@
                     <ul class="right hide-on-med-and-down">
                         <a asp-area="Usuarios" asp-controller="Usuarios" asp-action="SessionClose">Salir</a>
                     </ul>
+                    <a href="#" data-target="slide-out" class="btn-floating btn-large waves-effect waves-light cyan darken-2 sidenav-trigger"></a>
                 </div>
             }
         </div>
     </nav>
+    <ul id="slide-out" class="sidenav">
+        <li>
+            <div class="user-view cyan darken-2">
+                <img width="100" height="100" id="foto1" class="circle responsive-img valign profile-image" src="~/images/fotos/user-solid.jpg" />
+                <p class="white-text" id="name1">@UserManager.GetUserName(User)</p>
+                <p class="white-text" id="role1"></p>
+            </div>
+        </li>
+        <li>
+            <a asp-area="Principal" asp-controller="Principal" asp-action="Index" onclick="">Inicio</a>
+            <a href="">Inicio</a>
+        </li>
+        <li>
+            <a asp-area="Usuarios" asp-controller="Usuarios" asp-action="SessionClose">Salir</a>
+        </li>
+    </ul>
     @*<nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -65,7 +81,7 @@
 
         <footer class="footer cyan darken-2">
 
-            <p class="center-align white-text">&copy; 2020 - ProyBarbacoaHernandez</p>
+            <p class="center-align white-text">&copy; 2020 - ProyBarbacoaHernandez - JuanSB & JuanCM</p>
         </footer>
     </div>
 
@@ -84,10 +100,10 @@
         </script>
 
         @*<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
-                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                    crossorigin="anonymous"
-                    integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd">
+                      asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                      asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                      crossorigin="anonymous"
+                      integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd">
             </script>*@
 
         <script src="~/js/site.min.js" asp-append-version="true"></script>
