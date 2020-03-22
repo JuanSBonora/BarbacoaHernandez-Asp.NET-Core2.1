@@ -2722,8 +2722,14 @@ i.large {
 
 img.responsive-img,
 video.responsive-video {
-  max-width: 100%;
-  height: auto;
+    max-width: 100%;
+    height: auto;
+    /*
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 50%;
+    */
 }
 
 .pagination li {

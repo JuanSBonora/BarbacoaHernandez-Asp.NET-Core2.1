@@ -35,7 +35,7 @@ titlewhite{
     background: url(../images/icon/menu-icon.png) no-repeat;
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: 35px 35px;
+    background-size: 30px 30px;
 }
 
 .side-nav{
@@ -53,12 +53,16 @@ titlewhite{
     }
 }
 @media(min-width: 800px){
-    /*.container{
+    .container{
         max-width: 60%;
-    }*/
+    }
     .side-nav{
         max-width:20%;
         display: block;
+    }
+    .container2 {
+        width: 95%;
+        margin: -720px 30px 0px;
     }
 }
 
@@ -66,10 +70,10 @@ titlewhite{
 /*########### DEFAULT CSS ###########*/
 /*###################################*/
 
-    /* Hide/rearrange for smaller screens */
+    /* Hide/rearrange for smaller screens 
     @media screen and (max-width: 767px) {
-    /* Hide captions */
+    Hide captions 
     .carousel-caption {
         display: none;
     }
-}
+}*/

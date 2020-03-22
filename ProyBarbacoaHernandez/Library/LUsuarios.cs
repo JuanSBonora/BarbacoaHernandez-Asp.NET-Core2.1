@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 using ProyBarbacoaHernandez.Models;
 using System;
 using System.Collections.Generic;
@@ -7,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace ProyBarbacoaHernandez.Library
 {
-    public class Usuarios : ListObject
+    public class LUsuarios : ListObject
     {
-        public Usuarios()
+        public LUsuarios()
         {
 
         }
-        public Usuarios(RoleManager<IdentityRole> roleManager)
+        public LUsuarios(RoleManager<IdentityRole> roleManager)
         {
             _roleManager = roleManager;
             _usersRole = new UsersRoles();
         }
-        public Usuarios(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager)
+        public LUsuarios(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -62,6 +64,21 @@ namespace ProyBarbacoaHernandez.Library
             object[] data = { _identityError, _userData };
             dataList.Add(data);
             return dataList;
+        }
+        public String userData(HttpContext HttpContext)
+        {
+            String role = null;
+            var user = HttpContext.Session.GetString("User");
+            if (user != null)
+            {
+                UserData dataItem = JsonConvert.DeserializeObject<UserData>(user.ToString());
+                role = dataItem.Role;
+            }
+            else
+            {
+                role = "No data";
+            }
+            return role;
         }
     }
 }

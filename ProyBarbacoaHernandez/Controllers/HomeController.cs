@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,19 +20,29 @@ namespace ProyBarbacoaHernandez.Controllers
     {
         IServiceProvider _serviceProvider;
 
-        private Usuarios _usuarios;
+        private LUsuarios _usuarios;
+        private SignInManager<IdentityUser> _signInManager;
 
         public HomeController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
-            _usuarios = new Usuarios( userManager, signInManager, roleManager);
+            _signInManager = signInManager;
+            _usuarios = new LUsuarios( userManager, signInManager, roleManager);
             //_serviceProvider = serviceProvider;
             // ejecutarTareaAsync();
         }
 
         public async Task<IActionResult> Index()
         {
+            if (_signInManager.IsSignedIn(User))
+            {
+                return RedirectToAction(nameof(PrincipalController.Index), "Principal");
+            }
+            else
+            {
+                return View();
+            }
             await CreateRolesAsync(_serviceProvider);
-            return View();
+            
         }
         [HttpPost]
         [AllowAnonymous] 
@@ -46,6 +57,7 @@ namespace ProyBarbacoaHernandez.Controllers
                 if (model.ErrorMessage.Equals("True"))
                 {
                     var data = JsonConvert.SerializeObject(objects[1]);
+                    HttpContext.Session.SetString("User",data);
                     return RedirectToAction(nameof(PrincipalController.Index), "Principal");
                 }
                 else
