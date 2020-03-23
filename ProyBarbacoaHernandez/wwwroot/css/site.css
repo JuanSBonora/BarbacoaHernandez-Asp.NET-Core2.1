@@ -24,7 +24,8 @@ titlewhite{
     position: fixed;
     left: 0;
     bottom: 0;
-    width: 100% 
+    width: 100%;
+    z-index: 1;
 }
 
 /*###################################*/
@@ -62,7 +63,7 @@ titlewhite{
     }
     .container2 {
         width: 95%;
-        margin: -720px 30px 0px;
+        margin: -720px 30px 75px;
     }
 }
 
