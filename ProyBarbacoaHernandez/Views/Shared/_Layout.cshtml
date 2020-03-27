@@ -41,8 +41,11 @@
         <li>
             <div class="user-view cyan darken-2">
                 <img width="100" height="100" id="foto1" class="circle responsive-img valign profile-image" src="~/images/fotos/user-solid.jpg" />
-                <p class="white-text" id="name1">@UserManager.GetUserName(User)</p>
-                <p class="white-text" id="role1">@ViewData["Roles"]</p>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <p class="white-text" id="name1">@UserManager.GetUserName(User)</p>
+                    <p class="white-text" id="role1">@User.Claims.FirstOrDefault(u => u.Type.Equals("http://schemas.microsoft.com/ws/2008/06/identity/claims/role")).Value</p>
+                }
             </div>
         </li>
         <li>
@@ -68,8 +71,8 @@
                                      <img src="~/images/fotos/user-solid.jpg" align="middle" width="75" height="75" id="foto2" class="circle responsive-img valign profile-image " />
                                  </div>
                                  <div class="center">
-                                     <p class="white-text" id="name2">@UserManager.GetUserName(User)</p>
-                                     <p class="white-text" id="role2">@ViewData["Roles"]</p>
+                                      <p class="white-text" id="name2">@UserManager.GetUserName(User)</p>
+                                      <p class="white-text" id="role2">@User.Claims.FirstOrDefault(u => u.Type.Equals("http://schemas.microsoft.com/ws/2008/06/identity/claims/role")).Value</p>
                                  </div>
                              </div>
                          </li>

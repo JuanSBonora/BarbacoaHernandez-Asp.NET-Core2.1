@@ -71,6 +71,11 @@
                         <span asp-validation-for="Input.Password" class="text-danger"></span>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        @Html.DropDownList("Input.Role", new SelectList(Model.Input.rolesLista, "Text","Text"),"Seleccione un role",null)
+                    </div>
+                </div>
             </div>
         </div>
         <div class="modal-footer">

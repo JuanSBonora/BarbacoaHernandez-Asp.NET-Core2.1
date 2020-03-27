@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -25,7 +26,8 @@ namespace ProyBarbacoaHernandez.Areas.Usuarios.Controllers
         {
             if (_signInManager.IsSignedIn(User))
             {
-                ViewData["Roles"] = _usuarios.userData(HttpContext);
+                //var data = User.Claims.FirstOrDefault(u => u.Type.Equals("http://schemas.microsoft.com/ws/2008/06/identity/claims/role")).Value;
+                //ViewData["Roles"] = _usuarios.userData(HttpContext);
                 return View();
             }
             else

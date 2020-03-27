@@ -24,7 +24,7 @@ namespace ProyBarbacoaHernandez.Areas.Principal.Controllers
         {
             if (_signInManager.IsSignedIn(User))
             {
-                ViewData["Roles"] = _usuarios.userData(HttpContext);
+                //ViewData["Roles"] = _usuarios.userData(HttpContext);
                 return View();
             }
             else
