@@ -4,9 +4,18 @@
 /*#############################*/
 /*########### LOGIN ###########*/
 /*#############################*/
-
+.containerlogin {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+.containerlogin .rowlogin {
+    margin: 0 auto;
+}
 .card {
-    margin-top: 70px;
     /*max-width: 50%;*/
     width: 18rem;
     border: 1px /*solid #17141d*/;
@@ -50,11 +59,17 @@ titlewhite{
 }
 
 @media(max-width: 1024px){
+    .containerlogin{
+        max-width:100%;
+    }
     .side-nav{
         display: none;
     }
 }
 @media(min-width: 800px){
+    .containerlogin {
+        max-width: 100%;
+    }
     .container{
         max-width: 60%;
     }

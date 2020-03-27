@@ -8,78 +8,75 @@
             <center>
                 <h5>Registrar Usuarios</h5>
             </center>
+            <br />
             <div class="row">
                 <div class="col s9 m6">
-                    <div class="card">
-                        <div class="card-content white-text">
-                            <center>
-                                <span class="card-title blue-grey-text">Foto o Imagen</span>
-                                <output id="fotos">
-                                    <img src="~/images/fotos/user-solid.jpg" width="100" height="100" />
-                                </output>
-                            </center>
-                        </div>
-                        <div class="card-action">
-                            <a>
-                                <div class="file-field">
-                                    <div class="btn waves-effect waves-light">
-                                        <span>Subir</span>
-                                        <input accept="image/*" type="file" id="files" name="files" />
+                    <center>
+                        <div class="card">
+                            <div class="card-content white-text">
+                                <center>
+                                    <span class="card-title blue-grey-text">Foto o Imagen</span>
+                                    <output id="fotos">
+                                        <img src="~/images/fotos/default.png" />
+                                    </output>
+                                </center>
+                            </div>
+                            <div class="card-action">
+                                <a>
+                                    <div style=" margin: 0px 0px -8px 65px;" class="file-field">
+                                        <div class="btn waves-effect waves-light">
+                                            <span>Subir</span>
+                                            <input accept="image/*" type="file" id="files" name="files" />
+                                        </div>
+                                        <br />
+                                        <br />
                                     </div>
-                                    <br />
-                                    <br />
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="row">
-                    <div class="input-field col s6">
-                        <input asp-for="Input.Nombre" placeholder="Nombre" id="nombre" />
-                        <label asp-for="Input.Nombre">Nombre</label>
-                        <span asp-validation-for="Input.Nombre" class="text-danger"></span>
-                    </div>
-                    <div class="input-field col s6">
-                        <input asp-for="Input.Apellido" placeholder="Apellido" id="apellido" />
-                        <label asp-for="Input.Apellido">Apellido</label>
-                        <span asp-validation-for="Input.Apellido" class="text-danger"></span>
-                    </div>
+                    </center>
                 </div>
                 <div class="row">
-                    <div class="input-field col s6">
-                        <input asp-for="Input.NID" placeholder="N° Identidad" id="nid" />
-                        <label asp-for="Input.NID">NID</label>
-                        <span asp-validation-for="Input.NID" class="text-danger"></span>
-                    </div>
-                    <div class="input-field col s6">
-                        <input asp-for="Input.Telefono" placeholder="N° Telefono" id="telefono" />
-                        <label asp-for="Input.Telefono">Telefono</label>
-                        <span asp-validation-for="Input.Telefono" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s6">
-                        <input asp-for="Input.Email" placeholder="Email" id="email" />
-                        <label asp-for="Input.Email">Email</label>
-                        <span asp-validation-for="Input.Email" class="text-danger"></span>
-                    </div>
-                    <div class="input-field col s6">
-                        <input asp-for="Input.Password" placeholder="Password" id="password" />
-                        <label asp-for="Input.Password">Contraseña</label>
-                        <span asp-validation-for="Input.Password" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        @Html.DropDownList("Input.Role", new SelectList(Model.Input.rolesLista, "Text","Text"),"Seleccione un role",null)
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input asp-for="Input.Nombre" placeholder="Nombre" id="nombre" />
+                            <label asp-for="Input.Nombre">Nombre</label>
+                            <span asp-validation-for="Input.Nombre" class="text-danger"></span>
+                        </div>
+                        <div class="input-field col s6">
+                            <input asp-for="Input.Apellido" placeholder="Apellido" id="apellido" />
+                            <label asp-for="Input.Apellido">Apellido</label>
+                            <span asp-validation-for="Input.Apellido" class="text-danger"></span>
+                        </div>
+                        <div class="input-field col s6">
+                            <input asp-for="Input.NID" placeholder="N° Identidad" id="nid" />
+                            <label asp-for="Input.NID">NID</label>
+                            <span asp-validation-for="Input.NID" class="text-danger"></span>
+                        </div>
+                        <div class="input-field col s6">
+                            <input asp-for="Input.Telefono" placeholder="N° Telefono" id="telefono" />
+                            <label asp-for="Input.Telefono">Telefono</label>
+                            <span asp-validation-for="Input.Telefono" class="text-danger"></span>
+                        </div>
+                        <div class="input-field col s6">
+                            <input asp-for="Input.Email" placeholder="Email" id="email" />
+                            <label asp-for="Input.Email">Email</label>
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        <div class="input-field col s6">
+                            <input asp-for="Input.Password" placeholder="Password" id="password" />
+                            <label asp-for="Input.Password">Contraseña</label>
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                        <div class="input-field col s6">
+                            @Html.DropDownList("Input.Role", new SelectList(Model.Input.rolesLista, "Text", "Text"), "Seleccione un role", null)
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="waves-effect waves-light btn">Registrar</button>
+            <button style="margin:-30px 10px 25px 325px;" type="submit" class="waves-effect waves-light btn">Registrar</button>
         </div>
     </form>
 </div>
