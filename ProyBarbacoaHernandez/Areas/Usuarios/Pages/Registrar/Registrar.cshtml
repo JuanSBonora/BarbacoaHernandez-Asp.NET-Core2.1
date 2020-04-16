@@ -16,17 +16,20 @@
                             <div class="card-content white-text">
                                 <center>
                                     <span class="card-title blue-grey-text">Foto o Imagen</span>
-                                    <output id="fotos">
+                                    <output id="imageRgistrar">
                                         <img src="~/images/fotos/default.png" />
                                     </output>
                                 </center>
                             </div>
                             <div class="card-action">
                                 <a>
-                                    <div style=" margin: 0px 0px -8px 65px;" class="file-field">
+                                    <div style=" margin: -5px -5px -10px -5px;" class="file-field input-field">
                                         <div class="btn waves-effect waves-light">
                                             <span>Subir</span>
-                                            <input accept="image/*" type="file" id="files" name="files" />
+                                            <input asp-for="Input.AvatarImage" accept="image/*" type="file" id="files">
+                                            <div class="file-path-wrapper">
+                                                <input class="file-path" type="text">
+                                            </div>
                                         </div>
                                         <br />
                                         <br />

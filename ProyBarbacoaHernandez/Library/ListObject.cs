@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ProyBarbacoaHernandez.Data;
 using ProyBarbacoaHernandez.Models;
@@ -18,6 +19,7 @@ namespace ProyBarbacoaHernandez.Library
         public LUsuarios _usuarios;
         public IdentityError _identityError;
         public ApplicationDbContext _context;
+        public IHostingEnvironment _environment; 
 
 
         public List<SelectListItem> _userRoles;
