@@ -17,18 +17,19 @@ namespace ProyBarbacoaHernandez.Areas.Usuarios.Pages.Registrar
 {
     public class RegistrarModel : PageModel
     {
-        private ListObject listObject = new ListObject();
+        private ListObject objeto = new ListObject();
         //private LUsuarios _usuarios;
         public RegistrarModel(RoleManager<IdentityRole> roleManager, IHostingEnvironment environment) {
-            listObject._roleManager = roleManager;
-            listObject._environment = environment;
-            listObject._usuarios = new LUsuarios();
-            listObject._usersRole = new UsersRoles();
+            objeto._roleManager = roleManager;
+            objeto._environment = environment;
+            objeto._usuarios = new LUsuarios();
+            objeto._usersRole = new UsersRoles();
+            objeto._image = new Uploadimage();
         }
         public void OnGet() {
             Input = new InputModel
             {
-                rolesLista = listObject._usersRole.getRoles(listObject._roleManager)
+                rolesLista = objeto._usersRole.getRoles(objeto._roleManager)
             };
         }
         [BindProperty]
@@ -41,21 +42,21 @@ namespace ProyBarbacoaHernandez.Areas.Usuarios.Pages.Registrar
         }
         public async Task<IActionResult> OnPostAsync()
         {
+            await guardarAsync();
+            return Page();
+        }
+        private async Task guardarAsync()
+        {
             try
             {
                 var imageName = Input.Email + ".png";
-                var filePath = Path.Combine(listObject._environment.ContentRootPath, "wwwroot/images/fotos", imageName);
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await Input.AvatarImage.CopyToAsync(stream);
-                }
+                await objeto._image.copiarImagenAsync(Input.AvatarImage, imageName, objeto._environment, "Usuarios");
             }
             catch (Exception ex)
             {
 
                 throw;
             }
-            return Page();
         }
     }
 }

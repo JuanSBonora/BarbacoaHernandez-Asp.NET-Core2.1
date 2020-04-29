@@ -17,6 +17,7 @@ namespace ProyBarbacoaHernandez.Library
         public UsersRoles _usersRole;
         public UserData _userData;
         public LUsuarios _usuarios;
+        public Uploadimage _image;
         public IdentityError _identityError;
         public ApplicationDbContext _context;
         public IHostingEnvironment _environment; 
