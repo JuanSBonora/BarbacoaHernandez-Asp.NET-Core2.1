@@ -60,7 +60,30 @@ namespace ProyBarbacoaHernandez.Areas.Usuarios.Pages.Registrar
                 var userList = objeto._userManager.Users.Where(u => u.Email.Equals(Input.Email)).ToList();
                 if (userList.Count.Equals(0))
                 {
+                    var imageName = Input.Email + ".png";
+                    var user = new IdentityUser
+                    {
+                        UserName = Input.Email,
+                        Email = Input.Email,
+                        PhoneNumber = Input.Telefono
+                    };
+                    var result = await objeto._userManager.CreateAsync(user, Input.Password);
+                    if (result.Succeeded)
+                    {
 
+                    }
+                    else
+                    {
+                        foreach (var item in result.Errors)
+                        {
+                            Input = new InputModel
+                            {
+                                ErrorMessage = item.Description,
+                                rolesLista = objeto._userRoles
+                            };
+                        }
+                    }
+                    await objeto._image.copiarImagenAsync(Input.AvatarImage, imageName, objeto._environment, "Usuarios");
                 }
                 else
                 {
@@ -70,8 +93,6 @@ namespace ProyBarbacoaHernandez.Areas.Usuarios.Pages.Registrar
                         rolesLista = objeto._userRoles
                     };
                 }
-                var imageName = Input.Email + ".png";
-                await objeto._image.copiarImagenAsync(Input.AvatarImage, imageName, objeto._environment, "Usuarios");
             }
             catch (Exception ex)
             {
