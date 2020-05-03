@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
+using ProyBarbacoaHernandez.Data;
 using ProyBarbacoaHernandez.Models;
 using System;
 using System.Collections.Generic;
@@ -20,11 +21,13 @@ namespace ProyBarbacoaHernandez.Library
             _roleManager = roleManager;
             _usersRole = new UsersRoles();
         }
-        public LUsuarios(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager)
+        public LUsuarios(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager,
+               ApplicationDbContext context)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
+            _context = context;
             _usersRole = new UsersRoles();
         }
         internal async Task<List<object[]>> userLogin(string email, string password)
@@ -34,13 +37,13 @@ namespace ProyBarbacoaHernandez.Library
                 var result = await _signInManager.PasswordSignInAsync(email, password, false, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    var appUser = _userManager.Users.Where(u => u.Email.Equals(email)).ToList();
-                    _userRoles = await _usersRole.getRole(_userManager, _roleManager, appUser[0].Id);
+                    var appUser1 = _context.Users.Where(u => u.Email.Equals(email)).ToList();
+                    var appUser2 = _context.TUsuarios.Where(u => u.IdUser.Equals(appUser1[0].Id)).ToList();
+                    //_userRoles = await _usersRole.getRole(_userManager, _roleManager, appUser[0].Id);
                     _userData = new UserData
                     {
-                        Id = appUser[0].Id,
-                        Role = _userRoles[0].Text,
-                        UserName = appUser[0].UserName
+                        UserName = appUser2[0].Nombre + "" + appUser2[0].Apellido,
+                        Imagen = appUser2[0].Imagen + ".png"
                     };
                     code = "0";
                     description = result.Succeeded.ToString();

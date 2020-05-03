@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using ProyBarbacoaHernandez.Areas.Principal.Controllers;
+using ProyBarbacoaHernandez.Data;
 using ProyBarbacoaHernandez.Library;
 using ProyBarbacoaHernandez.Models;
 
@@ -23,10 +24,11 @@ namespace ProyBarbacoaHernandez.Controllers
         private LUsuarios _usuarios;
         private SignInManager<IdentityUser> _signInManager;
 
-        public HomeController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager)
+        public HomeController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager,
+               ApplicationDbContext context)
         {
             _signInManager = signInManager;
-            _usuarios = new LUsuarios( userManager, signInManager, roleManager);
+            _usuarios = new LUsuarios( userManager, signInManager, roleManager, context);
             //_serviceProvider = serviceProvider;
             // ejecutarTareaAsync();
         }
