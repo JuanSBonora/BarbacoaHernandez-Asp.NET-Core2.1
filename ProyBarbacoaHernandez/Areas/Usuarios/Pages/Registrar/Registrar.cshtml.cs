@@ -59,7 +59,7 @@ namespace ProyBarbacoaHernandez.Areas.Usuarios.Pages.Registrar
                 return Page();
             }
         }
-        private async Task<bool > guardarAsync()
+        private async Task<bool> guardarAsync()
         {
             var valor = false;
             try

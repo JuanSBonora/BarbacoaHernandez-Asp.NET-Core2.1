@@ -111,7 +111,9 @@ namespace ProyBarbacoaHernandez.Controllers
                         await roleManager.CreateAsync(new IdentityRole(item));
                     }
                 }
-                var user = await userManager.FindByIdAsync("75ba7e9c-85cf-408a-8147-688a2653d22f");
+                //Cambiar Usuario para evitar error: index.(Login)
+                //Proporcionar usuario de la tabla Tusuarios & Users
+                var user = await userManager.FindByIdAsync("83d37e4d-50f6-49b5-87b4-eb17e75e9856");
                 await userManager.AddToRoleAsync(user, "Admin");
             }
             catch (Exception ex)
