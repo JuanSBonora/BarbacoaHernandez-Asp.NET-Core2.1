@@ -40,11 +40,11 @@ namespace ProyBarbacoaHernandez.Library
                     var appUser1 = _context.Users.Where(u => u.Email.Equals(email)).ToList();
                     var appUser2 = _context.TUsuarios.Where(u => u.IdUser.Equals(appUser1[0].Id)).ToList();
                     _userRoles = await _usersRole.getRole(_userManager, _roleManager, appUser1[0].Id);
-                    _userData = new UserData
-                    {
-                        UserName = appUser2[0].Nombre+" "+ appUser2[0].Apellido,
-                        Imagen = appUser2[0].Imagen+".png"
-                    };
+                    //_userData = new UserData
+                    //{
+                    //    UserName = appUser2[0].Nombre+" "+ appUser2[0].Apellido,
+                    //    Imagen = appUser2[0].Imagen+".png"
+                    //};
                     code = "0";
                     description = result.Succeeded.ToString();
                 }

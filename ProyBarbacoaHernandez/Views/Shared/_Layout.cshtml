@@ -1,8 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Identity;
-
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
-
+@{ 
+    var userImagen = UserManager.GetUserName(User) + ".png";
+}
 <html class="">
 <head>
     <meta charset="utf-8" />
@@ -40,7 +41,7 @@
     <ul id="slide-out" class="sidenav">
         <li>
             <div class="user-view cyan darken-2">
-                <img width="100" height="100" id="foto1" class="circle responsive-img valign profile-image" src="~/images/fotos/user-solid.jpg" />
+                <img width="100" height="100" id="foto1" class="circle responsive-img valign profile-image" src="~/images/fotos/Usuarios/@userImagen" />
                 @if (SignInManager.IsSignedIn(User))
                 {
                     <p class="white-text" id="name1">@UserManager.GetUserName(User)</p>
@@ -68,11 +69,13 @@
                          <li class="user-details cyan darken-2">
                              <div class="row">
                                  <div class="center">
-                                     <img src="~/images/fotos/default.png" align="middle" id="foto2" class="circle responsive-img valign profile-image " />
+                                     <img src="~/images/fotos/Usuarios/@userImagen" width="180" height="200" align="middle" id="foto2" class="circle responsive-img" />
                                  </div>
                                  <div class="center">
-                                      <p class="white-text" id="name2">@UserManager.GetUserName(User)</p>
-                                      <p class="white-text" id="role2">@User.Claims.FirstOrDefault(u => u.Type.Equals("http://schemas.microsoft.com/ws/2008/06/identity/claims/role")).Value</p>
+                                     <p class="white-text left-align" style="margin-left:10px;">Usuario</p>
+                                     <p class="white-text" id="name2"><strong> @UserManager.GetUserName(User)</strong></p>
+                                     <p class="white-text left-align" style="margin-left:10px;">Role</p>
+                                     <p class="white-text" id="role2"><strong>@User.Claims.FirstOrDefault(u => u.Type.Equals("http://schemas.microsoft.com/ws/2008/06/identity/claims/role")).Value</strong></p>
                                  </div>
                              </div>
                          </li>

@@ -58,8 +58,8 @@ namespace ProyBarbacoaHernandez.Controllers
                 model.ErrorMessage = _identityError.Description;
                 if (model.ErrorMessage.Equals("True"))
                 {
-                    var data = JsonConvert.SerializeObject(objects[1]);
-                    HttpContext.Session.SetString("User",data);
+                    //var data = JsonConvert.SerializeObject(objects[1]);
+                    //HttpContext.Session.SetString("User",data);
                     return RedirectToAction(nameof(PrincipalController.Index), "Principal");
                 }
                 else
@@ -113,6 +113,7 @@ namespace ProyBarbacoaHernandez.Controllers
                 }
                 //Cambiar Usuario para evitar error: index.(Login)
                 //Proporcionar usuario de la tabla Tusuarios & Users
+                // jfsb@gmail.com => Juan.123 (Not working)
                 var user = await userManager.FindByIdAsync("83d37e4d-50f6-49b5-87b4-eb17e75e9856");
                 await userManager.AddToRoleAsync(user, "Admin");
             }
