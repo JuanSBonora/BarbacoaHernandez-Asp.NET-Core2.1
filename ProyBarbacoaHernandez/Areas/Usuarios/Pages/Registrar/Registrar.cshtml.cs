@@ -40,8 +40,6 @@ namespace ProyBarbacoaHernandez.Areas.Usuarios.Pages.Registrar
         [BindProperty]
         public InputModel Input { get; set; }
         public class InputModel : InputModelRegistrar {
-            [Required]
-            public string Role { get; set; }
             [TempData]
             public string ErrorMessage { get; set; }
             public IFormFile AvatarImage { get; set; }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
+using ProyBarbacoaHernandez.Areas.Usuarios.Models;
 using ProyBarbacoaHernandez.Data;
 using ProyBarbacoaHernandez.Models;
 using System;
@@ -68,7 +69,25 @@ namespace ProyBarbacoaHernandez.Library
             dataList.Add(data);
             return dataList;
         }
-        public String userData(HttpContext HttpContext)
+        public async Task<List<InputModelRegistrar>> getTUsuariosAsync()
+        {
+            List<InputModelRegistrar> userList = new List<InputModelRegistrar>();
+            var listUser = _context.TUsuarios.ToList();
+            foreach (var item in listUser)
+            {
+                _userRoles = await _usersRole.getRole(_userManager, _roleManager, item.IdUser);
+                userList.Add(new InputModelRegistrar
+                {
+                    ID = item.IdUser,
+                    NID = item.NID,
+                    Nombre = item.Nombre,
+                    Apellido = item.Apellido,
+                    Role = _userRoles[0].Text
+                });
+            }
+            return userList;
+        }
+        /*public String userData(HttpContext HttpContext)
         {
             String role = null;
             var user = HttpContext.Session.GetString("User");
@@ -82,6 +101,6 @@ namespace ProyBarbacoaHernandez.Library
                 role = "No data";
             }
             return role;
-        }
+        }*/
     }
 }

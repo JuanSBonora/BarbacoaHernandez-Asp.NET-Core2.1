@@ -27,5 +27,9 @@ namespace ProyBarbacoaHernandez.Areas.Usuarios.Models
         [DataType(DataType.Password)]
         [StringLength(100, ErrorMessage = "<font color = 'red'>El número de caracteres de {0} debe ser al menos {2}.</font>", MinimumLength = 6)]
         public string Password { get; set; }
+
+        [Required]
+        public string Role { get; set; }
+        public string ID { get; set; }
     }
 }

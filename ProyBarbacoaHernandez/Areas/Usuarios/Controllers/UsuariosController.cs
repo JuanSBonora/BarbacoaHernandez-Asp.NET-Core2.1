@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ProyBarbacoaHernandez.Controllers;
+using ProyBarbacoaHernandez.Data;
 using ProyBarbacoaHernandez.Library;
 
 namespace ProyBarbacoaHernandez.Areas.Usuarios.Controllers
@@ -15,19 +16,19 @@ namespace ProyBarbacoaHernandez.Areas.Usuarios.Controllers
     [Area("Usuarios")]
     public class UsuariosController : Controller
     {
-        private LUsuarios _usuarios;
-        private readonly SignInManager<IdentityUser> _signInManager;
-        public UsuariosController(SignInManager<IdentityUser> signInManager)
+        private ListObject objeto = new ListObject();
+        public UsuariosController(UserManager<IdentityUser> userManager,SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager, ApplicationDbContext context)
         {
-            _signInManager = signInManager;
-            _usuarios = new LUsuarios();
+            objeto._signInManager = signInManager;
+            objeto._usuarios = new LUsuarios(userManager, signInManager, roleManager, context);
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            if (_signInManager.IsSignedIn(User))
+            if (objeto._signInManager.IsSignedIn(User))
             {
                 //var data = User.Claims.FirstOrDefault(u => u.Type.Equals("http://schemas.microsoft.com/ws/2008/06/identity/claims/role")).Value;
                 //ViewData["Roles"] = _usuarios.userData(HttpContext);
+                var model = await objeto._usuarios.getTUsuariosAsync();
                 return View();
             }
             else
@@ -38,7 +39,7 @@ namespace ProyBarbacoaHernandez.Areas.Usuarios.Controllers
         public async Task<IActionResult> SessionClose()
         {
             HttpContext.Session.Remove("User");
-            await _signInManager.SignOutAsync();
+            await objeto._signInManager.SignOutAsync();
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
     }
