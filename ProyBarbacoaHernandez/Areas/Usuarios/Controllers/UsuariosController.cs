@@ -29,7 +29,7 @@ namespace ProyBarbacoaHernandez.Areas.Usuarios.Controllers
                 //var data = User.Claims.FirstOrDefault(u => u.Type.Equals("http://schemas.microsoft.com/ws/2008/06/identity/claims/role")).Value;
                 //ViewData["Roles"] = _usuarios.userData(HttpContext);
                 var model = await objeto._usuarios.getTUsuariosAsync();
-                return View();
+                return View(model);
             }
             else
             {

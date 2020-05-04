@@ -82,8 +82,10 @@ namespace ProyBarbacoaHernandez.Library
                     NID = item.NID,
                     Nombre = item.Nombre,
                     Apellido = item.Apellido,
-                    Role = _userRoles[0].Text
+                    Role = _userRoles[0].Text,
+                    Email = item.Imagen
                 });
+                _userRoles.Clear();
             }
             return userList;
         }

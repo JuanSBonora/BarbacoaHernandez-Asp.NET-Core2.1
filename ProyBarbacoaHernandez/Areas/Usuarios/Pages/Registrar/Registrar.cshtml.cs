@@ -20,6 +20,7 @@ namespace ProyBarbacoaHernandez.Areas.Usuarios.Pages.Registrar
     public class RegistrarModel : PageModel
     {
         private ListObject objeto = new ListObject();
+        private static String idGet = null;
         //private LUsuarios _usuarios;
         public RegistrarModel(RoleManager<IdentityRole> roleManager,UserManager<IdentityUser> userManager, ApplicationDbContext context,IHostingEnvironment environment) {
             objeto._roleManager = roleManager;
@@ -31,11 +32,13 @@ namespace ProyBarbacoaHernandez.Areas.Usuarios.Pages.Registrar
             objeto._image = new Uploadimage();
             objeto._userRoles = new List<SelectListItem>();
     }
-        public void OnGet() {
-            Input = new InputModel
+        public async Task OnGetAsync(String id) 
+        {
+            if (id != null)
             {
-                rolesLista = objeto._usersRole.getRoles(objeto._roleManager)
-            };
+                idGet = id;
+                await setEditarAsync(id);
+            }
         }
         [BindProperty]
         public InputModel Input { get; set; }
@@ -138,6 +141,24 @@ namespace ProyBarbacoaHernandez.Areas.Usuarios.Pages.Registrar
                 valor = false;
             }
             return valor;
+        }
+        private async Task setEditarAsync(string Email)
+        {
+            var userList1 = objeto._userManager.Users.Where(u => u.Email.Equals(Email)).ToList();
+            var userList2 = objeto._context.TUsuarios.Where(u => u.IdUser.Equals(userList1[0].Id)).ToList();
+            var userRoles = await objeto._usersRole.getRole(objeto._userManager, objeto._roleManager, userList1[0].Id);
+
+            Input = new InputModel
+            {
+                Nombre = userList2[0].Nombre,
+                Apellido = userList2[0].Apellido,
+                NID = userList2[0].NID,
+                Telefono = userList1[0].PhoneNumber,
+                Email = userList1[0].Email,
+                Password = "*********",
+                //Imagen = userList2[0].Imagen,
+                //rolesLista = getRoles(userRoles[0].Text)
+            };
         }
     }
 }
