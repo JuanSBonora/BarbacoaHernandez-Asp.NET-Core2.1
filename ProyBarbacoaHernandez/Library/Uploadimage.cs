@@ -10,13 +10,27 @@ namespace ProyBarbacoaHernandez.Library
 {
     public class Uploadimage
     {
-        public async Task copiarImagenAsync(IFormFile AvatarImage, string fileName, IHostingEnvironment environment, string carpeta)
+        public async Task copiarImagenAsync(IFormFile AvatarImage, string fileName, IHostingEnvironment environment, string carpeta, String imagen)
         {
             if (null == AvatarImage)
             {
-                var archivoOrigen = environment.ContentRootPath + "/wwwroot/images/fotos/"+carpeta+"/default.png";
+                String archivoOrigen;
                 var destFileName = environment.ContentRootPath + "/wwwroot/images/fotos/" + carpeta + "/" + fileName;
-                File.Copy(archivoOrigen, destFileName, true);
+                if (imagen == null)
+                {
+                    archivoOrigen = environment.ContentRootPath + "/wwwroot/images/fotos/" + carpeta + "/default.png";
+                    File.Copy(archivoOrigen, destFileName, true);
+                }
+                else
+                {
+                    archivoOrigen = environment.ContentRootPath + "/wwwroot/images/fotos/" + carpeta + "/" + imagen + ".png";
+                    if (fileName != imagen + " .png")
+                    {
+                        File.Copy(archivoOrigen, destFileName, true);
+                        File.Delete(archivoOrigen);
+                    }
+                }
+                
             }
             else
             {

@@ -39,6 +39,13 @@ namespace ProyBarbacoaHernandez.Areas.Usuarios.Pages.Registrar
                 idGet = id;
                 await setEditarAsync(id);
             }
+            else
+            {
+                Input = new InputModel
+                {
+                    rolesLista = objeto._usersRole.getRoles(objeto._roleManager)
+                };
+            }
         }
         [BindProperty]
         public InputModel Input { get; set; }
@@ -50,14 +57,29 @@ namespace ProyBarbacoaHernandez.Areas.Usuarios.Pages.Registrar
         }
         public async Task<IActionResult> OnPostAsync()
         {
-            var valor = await guardarAsync();
-            if (valor)
+            if (idGet == null)
             {
-                return RedirectToAction(nameof(UsuariosController.Index), "Usuarios");
+                var valor = await guardarAsync();
+                if (valor)
+                {
+                    return RedirectToAction(nameof(UsuariosController.Index), "Usuarios");
+                }
+                else
+                {
+                    return Page();
+                }
             }
             else
             {
-                return Page();
+                var valor = await actualizarAsync();
+                if (valor)
+                {
+                    return RedirectToAction(nameof(UsuariosController.Index), "Usuarios");
+                }
+                else
+                {
+                    return Page();
+                }
             }
         }
         private async Task<bool> guardarAsync()
@@ -96,7 +118,7 @@ namespace ProyBarbacoaHernandez.Areas.Usuarios.Pages.Registrar
                             };
                             await objeto._context.AddAsync(usuarios);
                             objeto._context.SaveChanges();
-                            await objeto._image.copiarImagenAsync(Input.AvatarImage, imageName, objeto._environment, "Usuarios");
+                            await objeto._image.copiarImagenAsync(Input.AvatarImage, imageName, objeto._environment, "Usuarios", null);
                             valor = true;
                         }
                         else
@@ -157,8 +179,62 @@ namespace ProyBarbacoaHernandez.Areas.Usuarios.Pages.Registrar
                 Email = userList1[0].Email,
                 Password = "*********",
                 //Imagen = userList2[0].Imagen,
-                //rolesLista = getRoles(userRoles[0].Text)
+                rolesLista = getRoles(userRoles[0].Text)
             };
+        }
+        private async Task<bool> actualizarAsync()
+        {
+            var valor = false;
+            try
+            {
+                //Input = new InputModel
+                //{
+                    
+                //    Password = "*********",
+                //};
+                if (ModelState.IsValid)
+                {
+                    var imageName = Input.Email + ".png";
+                    await objeto._image.copiarImagenAsync(Input.AvatarImage, imageName, objeto._environment, "Usuarios", idGet);
+                    valor = true;
+                }
+                else
+                {
+                    Input = new InputModel
+                    {
+                        ErrorMessage = "Seleccione un role",
+                        rolesLista = objeto._usersRole.getRoles(objeto._roleManager)
+                    };
+                    valor = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Input = new InputModel
+                {
+                    ErrorMessage = ex.Message,
+                    rolesLista = getRoles(Input.Role)
+                };
+            }
+            return valor;
+        }
+        private List<SelectListItem> getRoles(String role)
+        {
+            objeto._userRoles.Add(new SelectListItem 
+            {
+                Text = role
+            });
+            var roles = objeto._usersRole.getRoles(objeto._roleManager);
+            roles.ForEach(item => {
+                if (item.Text != role)
+                {
+                    objeto._userRoles.Add(new SelectListItem 
+                    {
+                        Text = item.Text
+                    });
+                }
+            });
+            return objeto._userRoles;
         }
     }
 }
