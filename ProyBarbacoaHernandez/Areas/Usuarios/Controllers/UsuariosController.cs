@@ -24,12 +24,12 @@ namespace ProyBarbacoaHernandez.Areas.Usuarios.Controllers
             objeto._signInManager = signInManager;
             objeto._usuarios = new LUsuarios(userManager, signInManager, roleManager, context);
         }
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Index(int id, String Search)
         {
             if (objeto._signInManager.IsSignedIn(User))
             {
                 var url = Request.Scheme + "://" + Request.Host.Value;
-                var objects = new Paginador<InputModelRegistrar>().paginador(await objeto._usuarios.getTUsuariosAsync(), id, "Usuarios", "Usuarios", "Index", url);
+                var objects = new Paginador<InputModelRegistrar>().paginador(await objeto._usuarios.getTUsuariosAsync(Search), id, "Usuarios", "Usuarios", "Index", url);
 
                 var models = new DataPaginador<InputModelRegistrar>
                 {

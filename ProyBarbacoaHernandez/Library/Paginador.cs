@@ -8,7 +8,7 @@ namespace ProyBarbacoaHernandez.Library
     public class Paginador<T>
     {
         //cantidad de resultados por página 
-        private int pagi_cuantos = 5;
+        private int pagi_cuantos = 1;
         //cantidad de enlaces que se mostrarán como máximo en la barra de navegación 
         private int pagi_nav_num_enlaces = 3;
         private int pagi_actual;

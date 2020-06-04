@@ -11,5 +11,6 @@ namespace ProyBarbacoaHernandez.Models
         public string Pagi_info { get; set; }
         public string Pagi_navegacion { get; set; }
         public T Input { get; set; }
+        public string Search { get; set; }
     }
 }

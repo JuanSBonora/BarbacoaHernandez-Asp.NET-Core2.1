@@ -69,10 +69,18 @@ namespace ProyBarbacoaHernandez.Library
             dataList.Add(data);
             return dataList;
         }
-        public async Task<List<InputModelRegistrar>> getTUsuariosAsync()
+        public async Task<List<InputModelRegistrar>> getTUsuariosAsync(String valor)
         {
+            List<TUsuarios> listUser;
+            if (valor == null)
+            {
+                listUser = _context.TUsuarios.ToList();
+            }
+            else
+            {
+                listUser = _context.TUsuarios.Where(u => u.NID.StartsWith(valor) || u.Nombre.StartsWith(valor) || u.Apellido.StartsWith(valor) || u.Imagen.StartsWith(valor)).ToList();
+            }
             List<InputModelRegistrar> userList = new List<InputModelRegistrar>();
-            var listUser = _context.TUsuarios.ToList();
             foreach (var item in listUser)
             {
                 _userRoles = await _usersRole.getRole(_userManager, _roleManager, item.IdUser);

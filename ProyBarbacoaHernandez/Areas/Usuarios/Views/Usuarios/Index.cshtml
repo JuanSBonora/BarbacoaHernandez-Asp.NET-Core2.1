@@ -11,6 +11,16 @@
         <div class="row">
             <div class="input-field cold s0">
                 <a asp-area="Usuarios" asp-page="/Registrar/Registrar" class="waves-effect waves-light btn">Registrar</a>
+                <form asp-area="Usuario" asp-controller="Usuarios" asp-action="Index" method="get">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input asp-for="Search" placeholder="Buscar usuario">
+                        </div>
+                        <div class="input-field col s6">
+                            <button type="submit" class="waves-effect waves-light btn">Buscar</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
         <table class="table">
