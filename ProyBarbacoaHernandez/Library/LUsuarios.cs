@@ -86,6 +86,7 @@ namespace ProyBarbacoaHernandez.Library
                 _userRoles = await _usersRole.getRole(_userManager, _roleManager, item.IdUser);
                 userList.Add(new InputModelRegistrar
                 {
+                    Id = item.ID,
                     ID = item.IdUser,
                     NID = item.NID,
                     Nombre = item.Nombre,

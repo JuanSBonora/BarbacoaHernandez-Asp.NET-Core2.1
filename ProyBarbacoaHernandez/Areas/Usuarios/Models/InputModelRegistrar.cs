@@ -31,5 +31,6 @@ namespace ProyBarbacoaHernandez.Areas.Usuarios.Models
         [Required]
         public string Role { get; set; }
         public string ID { get; set; }
+        public int Id { get; set; }
     }
 }
