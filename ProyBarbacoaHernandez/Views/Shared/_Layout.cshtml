@@ -72,9 +72,9 @@
                                      <img src="~/images/fotos/Usuarios/@userImagen" width="180" height="200" align="middle" id="foto2" class="circle responsive-img" />
                                  </div>
                                  <div class="center">
-                                     <p class="white-text left-align" style="margin-left:10px;">Usuario</p>
+                                     @*<p class="white-text left-align" style="margin-left:10px;">Usuario</p>*@
                                      <p class="white-text" id="name2"><strong> @UserManager.GetUserName(User)</strong></p>
-                                     <p class="white-text left-align" style="margin-left:10px;">Role</p>
+                                     @*<p class="white-text left-align" style="margin-left:10px;">Role</p>*@
                                      <p class="white-text" id="role2"><strong>@User.Claims.FirstOrDefault(u => u.Type.Equals("http://schemas.microsoft.com/ws/2008/06/identity/claims/role")).Value</strong></p>
                                  </div>
                              </div>

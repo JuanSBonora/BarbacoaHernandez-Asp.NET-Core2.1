@@ -15,7 +15,7 @@ class Principal{
             if (id != null) {
                 document.getElementById("Input_Role").selectedIndex = 1;
                 document.getElementById("imageRgistrar").innerHTML = ['<img class="responsive-img " src="', URL + "images/fotos/Usuarios/" + id + ".png", '" title="', escape(id), '"/>'].join('');
-                //document.getElementById("password").disabled = true;
+                $("#divPassword").hide();
             }
         }
     }

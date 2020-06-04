@@ -1,41 +1,48 @@
-﻿@model IEnumerable<InputModelRegistrar>
+﻿@*@model IEnumerable<InputModelRegistrar>*@
+@model DataPaginador<InputModelRegistrar>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    //var list = Model.List;
 }
 
-<div class="container2">
-    <h4>Usuarios</h4>
-    <div class="row">
-        <div class="input-field cold s0">
-            <a asp-area="Usuarios" asp-page="/Registrar/Registrar" class="waves-effect waves-light btn">Registrar</a>
+    <div class="container2">
+        <h4>Usuarios</h4>
+        <div class="row">
+            <div class="input-field cold s0">
+                <a asp-area="Usuarios" asp-page="/Registrar/Registrar" class="waves-effect waves-light btn">Registrar</a>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="center">@Html.DisplayNameFor(model => model.Input.NID)</th>
+                    <th class="center">@Html.DisplayNameFor(model => model.Input.Nombre)</th>
+                    <th class="center">@Html.DisplayNameFor(model => model.Input.Apellido)</th>
+                    <th class="center">@Html.DisplayNameFor(model => model.Input.Role)</th>
+                    <th class="center">Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.List)
+                {
+                    <tr>
+                        <td class="center">@Html.DisplayFor(modelItem => item.NID)</td>
+                        <td class="center">@Html.DisplayFor(modelItem => item.Nombre)</td>
+                        <td class="center">@Html.DisplayFor(modelItem => item.Apellido)</td>
+                        <td class="center">@Html.DisplayFor(modelItem => item.Role)</td>
+                        <td class="center">
+                            <a asp-area="Usuarios" asp-page="/Registrar/Registrar" asp-route-id="@item.Email" class="waves-effect waves-light btn">Edit</a>
+                            <a asp-area="Delete" asp-route-id="@item.ID" class="waves-effect waves-light btn red lighten-1">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div>
+            Resultados @Html.Raw(Model.Pagi_info);
+            <br />
+            @Html.Raw(Model.Pagi_navegacion)
         </div>
     </div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th class="center">@Html.DisplayNameFor(model => model.NID)</th>
-                <th class="center">@Html.DisplayNameFor(model => model.Nombre)</th>
-                <th class="center">@Html.DisplayNameFor(model => model.Apellido)</th>
-                <th class="center">@Html.DisplayNameFor(model => model.Role)</th>
-                <th class="center">Opciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-            <tr>
-                <td class="center">@Html.DisplayFor(modelItem => item.NID)</td>
-                <td class="center">@Html.DisplayFor(modelItem => item.Nombre)</td>
-                <td class="center">@Html.DisplayFor(modelItem => item.Apellido)</td>
-                <td class="center">@Html.DisplayFor(modelItem => item.Role)</td>
-                <td class="center">
-                    <a asp-area="Usuarios" asp-page="/Registrar/Registrar" asp-route-id="@item.Email" class="waves-effect waves-light btn">Edit</a>
-                    <a asp-area="Delete" asp-route-id="@item.ID" class="waves-effect waves-light btn red lighten-1">Delete</a>
-                </td>
-            </tr>
-            }
-        </tbody>
-    </table>
-</div>
 

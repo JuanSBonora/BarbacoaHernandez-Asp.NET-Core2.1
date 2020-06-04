@@ -21,6 +21,8 @@ namespace ProyBarbacoaHernandez.Areas.Usuarios.Pages.Registrar
     {
         private ListObject objeto = new ListObject();
         private static String idGet = null;
+        private static List<IdentityUser> userList1;
+        private static List<TUsuarios> userList2;
         //private LUsuarios _usuarios;
         public RegistrarModel(RoleManager<IdentityRole> roleManager,UserManager<IdentityUser> userManager, ApplicationDbContext context,IHostingEnvironment environment) {
             objeto._roleManager = roleManager;
@@ -166,8 +168,8 @@ namespace ProyBarbacoaHernandez.Areas.Usuarios.Pages.Registrar
         }
         private async Task setEditarAsync(string Email)
         {
-            var userList1 = objeto._userManager.Users.Where(u => u.Email.Equals(Email)).ToList();
-            var userList2 = objeto._context.TUsuarios.Where(u => u.IdUser.Equals(userList1[0].Id)).ToList();
+            userList1 = objeto._userManager.Users.Where(u => u.Email.Equals(Email)).ToList();
+            userList2 = objeto._context.TUsuarios.Where(u => u.IdUser.Equals(userList1[0].Id)).ToList();
             var userRoles = await objeto._usersRole.getRole(objeto._userManager, objeto._roleManager, userList1[0].Id);
 
             Input = new InputModel
@@ -187,13 +189,39 @@ namespace ProyBarbacoaHernandez.Areas.Usuarios.Pages.Registrar
             var valor = false;
             try
             {
-                //Input = new InputModel
-                //{
-                    
-                //    Password = "*********",
-                //};
                 if (ModelState.IsValid)
                 {
+                    var identityUser = new IdentityUser
+                    {
+                        Id = userList1[0].Id,
+                        UserName = Input.Email,
+                        Email = Input.Email,
+                        PhoneNumber = Input.Telefono,
+                        EmailConfirmed = userList1[0].EmailConfirmed,
+                        LockoutEnabled = userList1[0].LockoutEnabled,
+                        LockoutEnd = userList1[0].LockoutEnd,
+                        NormalizedEmail = userList1[0].NormalizedEmail,
+                        NormalizedUserName = userList1[0].NormalizedUserName,
+                        PasswordHash = userList1[0].PasswordHash,
+                        PhoneNumberConfirmed = userList1[0].PhoneNumberConfirmed,
+                        SecurityStamp = userList1[0].SecurityStamp,
+                        TwoFactorEnabled = userList1[0].TwoFactorEnabled,
+                        AccessFailedCount = userList1[0].AccessFailedCount,
+                        ConcurrencyStamp = userList1[0].ConcurrencyStamp
+                    };
+                    objeto._context.Update(identityUser);
+                    await objeto._context.SaveChangesAsync();
+                    var usuarios = new TUsuarios
+                    {
+                        ID = userList2[0].ID,
+                        Nombre = Input.Nombre,
+                        Apellido = Input.Apellido,
+                        NID = Input.NID,
+                        Imagen = Input.Email,
+                        IdUser = userList1[0].Id,
+                    };
+                    objeto._context.Update(usuarios);
+                    await objeto._context.SaveChangesAsync();
                     var imageName = Input.Email + ".png";
                     await objeto._image.copiarImagenAsync(Input.AvatarImage, imageName, objeto._environment, "Usuarios", idGet);
                     valor = true;

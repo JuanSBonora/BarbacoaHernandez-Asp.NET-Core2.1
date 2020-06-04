@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using ProyBarbacoaHernandez.Areas.Usuarios.Models;
 using ProyBarbacoaHernandez.Controllers;
 using ProyBarbacoaHernandez.Data;
 using ProyBarbacoaHernandez.Library;
+using ProyBarbacoaHernandez.Models;
 
 namespace ProyBarbacoaHernandez.Areas.Usuarios.Controllers
 {
@@ -22,14 +24,22 @@ namespace ProyBarbacoaHernandez.Areas.Usuarios.Controllers
             objeto._signInManager = signInManager;
             objeto._usuarios = new LUsuarios(userManager, signInManager, roleManager, context);
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int id)
         {
             if (objeto._signInManager.IsSignedIn(User))
             {
-                //var data = User.Claims.FirstOrDefault(u => u.Type.Equals("http://schemas.microsoft.com/ws/2008/06/identity/claims/role")).Value;
-                //ViewData["Roles"] = _usuarios.userData(HttpContext);
-                var model = await objeto._usuarios.getTUsuariosAsync();
-                return View(model);
+                var url = Request.Scheme + "://" + Request.Host.Value;
+                var objects = new Paginador<InputModelRegistrar>().paginador(await objeto._usuarios.getTUsuariosAsync(), id, "Usuarios", "Usuarios", "Index", url);
+
+                var models = new DataPaginador<InputModelRegistrar>
+                {
+                    List = (List<InputModelRegistrar>)objects[2],
+                    Pagi_info = (String)objects[0],
+                    Pagi_navegacion = (String)objects[1],
+                    Input = new InputModelRegistrar()
+                };
+                
+                return View(models);
             }
             else
             {
