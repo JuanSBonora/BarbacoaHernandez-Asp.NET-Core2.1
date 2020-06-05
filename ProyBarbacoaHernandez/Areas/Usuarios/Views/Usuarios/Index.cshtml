@@ -43,7 +43,7 @@
                         <td class="center">@Html.DisplayFor(modelItem => item.Role)</td>
                         <td class="center">
                             <a asp-area="Usuarios" asp-page="/Registrar/Registrar" asp-route-id="@item.Email" class="waves-effect waves-light btn">Edit</a>
-                            <a asp-area="Delete" asp-route-id="@item.ID" class="waves-effect waves-light btn red lighten-1">Delete</a>
+                            <a asp-area="Usuarios" asp-page="/Eliminar/Eliminar" asp-route-id="@item.Email" class="waves-effect waves-light btn orange lighten-1">Delete</a>
                         </td>
                     </tr>
                 }

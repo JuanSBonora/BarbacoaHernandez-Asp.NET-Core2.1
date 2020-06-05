@@ -58,6 +58,10 @@ titlewhite{
     will-change: transform;
 }
 
+.row {
+    margin-bottom: 0px;
+}
+
 @media(max-width: 1024px){
     .containerlogin{
         max-width:100%;
@@ -79,7 +83,7 @@ titlewhite{
     }
     .container2 {
         width: 95%;
-        margin: -720px 30px 75px;
+        margin: -700px 30px 75px;
     }
 }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -15,8 +16,11 @@ namespace ProyBarbacoaHernandez.Areas.Usuarios.Pages.Eliminar
     {
         private ListObject objeto = new ListObject();
         private InputModel model;
-        public EliminarModel(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager, ApplicationDbContext context)
+        public EliminarModel(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager, ApplicationDbContext context, IHostingEnvironment environment)
         {
+            objeto._context = context;
+            objeto._environment = environment;
+            objeto._image = new Uploadimage();
             objeto._usuarios = new LUsuarios(userManager, signInManager, roleManager, context);
         }
         public async Task<IActionResult> OnGetAsync(String id)
@@ -58,6 +62,10 @@ namespace ProyBarbacoaHernandez.Areas.Usuarios.Pages.Eliminar
                 };
                 objeto._context.TUsuarios.Remove(usuarios);
                 objeto._context.SaveChanges();
+                var user = objeto._context.Users.SingleOrDefault(m => m.Id.Equals(model.ID));
+                objeto._context.Users.Remove(user);
+                objeto._context.SaveChanges();
+                objeto._image.deleteImagen(objeto._environment, "Usuarios", model.Email);
                 return Redirect("/Usuarios?area=Usuarios");
             }
             catch (Exception ex)

@@ -41,5 +41,10 @@ namespace ProyBarbacoaHernandez.Library
                 }
             }
         }
+        public void deleteImagen(IHostingEnvironment environment, String carpeta, String imagen)
+        {
+            var archivoOrigen = environment.ContentRootPath + "/wwwroot/images/fotos/" + carpeta + "/" + imagen + ".png";
+            File.Delete(archivoOrigen);
+        }
     }
 }
