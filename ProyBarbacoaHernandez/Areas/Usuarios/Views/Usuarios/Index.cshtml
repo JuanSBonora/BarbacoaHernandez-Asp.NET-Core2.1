@@ -26,7 +26,7 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th class="center">@Html.DisplayNameFor(model => model.Input.NID)</th>
+                    <th class="center">Imagen</th>
                     <th class="center">@Html.DisplayNameFor(model => model.Input.Nombre)</th>
                     <th class="center">@Html.DisplayNameFor(model => model.Input.Apellido)</th>
                     <th class="center">@Html.DisplayNameFor(model => model.Input.Role)</th>
@@ -36,8 +36,15 @@
             <tbody>
                 @foreach (var item in Model.List)
                 {
+                    var imagen = item.Email + ".png";
                     <tr>
-                        <td class="center">@Html.DisplayFor(modelItem => item.NID)</td>
+                        <td class="center">
+                            <ul class='collection'>
+                                <li class='collection-item avatar'>
+                                    <img class='responsive circle' src="~/images/fotos/Usuarios/@imagen" />
+                                </li>
+                            </ul>
+                        </td>
                         <td class="center">@Html.DisplayFor(modelItem => item.Nombre)</td>
                         <td class="center">@Html.DisplayFor(modelItem => item.Apellido)</td>
                         <td class="center">@Html.DisplayFor(modelItem => item.Role)</td>

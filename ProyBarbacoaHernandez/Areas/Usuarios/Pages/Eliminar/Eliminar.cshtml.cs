@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,10 +13,11 @@ using ProyBarbacoaHernandez.Library;
 
 namespace ProyBarbacoaHernandez.Areas.Usuarios.Pages.Eliminar
 {
+    [Authorize(Roles = "Admin")]
     public class EliminarModel : PageModel
     {
         private ListObject objeto = new ListObject();
-        private InputModel model;
+        private static InputModel model;
         public EliminarModel(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager, ApplicationDbContext context, IHostingEnvironment environment)
         {
             objeto._context = context;

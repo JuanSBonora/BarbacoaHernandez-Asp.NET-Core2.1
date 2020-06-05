@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -17,6 +18,7 @@ using ProyBarbacoaHernandez.Library;
 
 namespace ProyBarbacoaHernandez.Areas.Usuarios.Pages.Registrar
 {
+    [Authorize(Roles = "Admin")]
     public class RegistrarModel : PageModel
     {
         private ListObject objeto = new ListObject();
@@ -57,6 +59,7 @@ namespace ProyBarbacoaHernandez.Areas.Usuarios.Pages.Registrar
             public IFormFile AvatarImage { get; set; }
             public List<SelectListItem> rolesLista { get; set; }
         }
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> OnPostAsync()
         {
             if (idGet == null)
